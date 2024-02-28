@@ -1,7 +1,9 @@
 package com.example.dispositivosfx.models;
 
+import java.time.LocalDate;
+
 public class Dispositivo {
-   public enum TipoDispositivo {
+    public enum TipoDispositivo {
         ORDENADOR, PANTALLA, IMPRESORA, PROYECTOR, PORTATIL, ROUTER;
 
 
@@ -9,13 +11,13 @@ public class Dispositivo {
     //•	Atributos: Identificador, FechaCompra, Precio, Tipo Atributo, Marca, Modelo,
 
     private int id;
-    private String fechaCompra;
+    private LocalDate fechaCompra;
     private double precio;
     private TipoDispositivo tipoAtributo;
     private String marca;
     private String modelo;
 
-    public Dispositivo(String fechaCompra, double precio, TipoDispositivo tipoAtributo, String marca, String modelo) {
+    public Dispositivo(LocalDate fechaCompra, double precio, TipoDispositivo tipoAtributo, String marca, String modelo) {
         this.fechaCompra = fechaCompra;
         this.precio = precio;
         this.tipoAtributo = tipoAtributo;
@@ -34,11 +36,11 @@ public class Dispositivo {
         this.id = id;
     }
 
-    public String getFechaCompra() {
+    public LocalDate getFechaCompra() {
         return fechaCompra;
     }
 
-    public void setFechaCompra(String fechaCompra) {
+    public void setFechaCompra(LocalDate fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
@@ -72,5 +74,11 @@ public class Dispositivo {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    @Override
+    public String toString() {
+        return
+                tipoAtributo + " " + marca + " " + modelo;
     }
 }

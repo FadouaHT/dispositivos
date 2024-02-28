@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Inventario {
     //    Lista[Dispositivos], Ordenación, RutaImpresiónLista[Dispositivos], Ordenación, RutaImpresión
-    private List<Dispositivo> listaDispositivos;
+    private List<Dispositivo> listaDispositivos = new ArrayList<>();
     private String ordenacion;
 
     private String rutaImpresionLista;

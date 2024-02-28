@@ -4,6 +4,8 @@ import com.example.dispositivosfx.models.Dispositivo;
 import com.example.dispositivosfx.models.Inventario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -11,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Comparator;
 
 public class HelloController {
@@ -23,19 +26,25 @@ public class HelloController {
     private Inventario inventario;
 
     @FXML
-    private TextField txtDispositivo;
+    private ChoiceBox<String> tipoDipostivo;
 
     @FXML
     private TextField txtMarca;
+    @FXML
+    private TextField txtModelo;
 
     @FXML
     private TextField txtPrecio;
 
     @FXML
-    private TextField txtfechaCompra;
+    private DatePicker txtfechaCompra;
+
 
     public void initialize() {
         inventario = new Inventario();
+        inventario.setRutaImpresionLista("listaDispositivos.txt");
+        tipoDipostivo.getItems().addAll("ORDENADOR", "PANTALLA", "IMPRESORA", "PROYECTOR", "PORTATIL", "ROUTER");
+        rellenarLista();
         listaInventario.getItems().addAll(inventario.getListaDispositivos());
         listaInventario.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -45,22 +54,43 @@ public class HelloController {
         );
     }
 
+    private void rellenarLista() {
+        Dispositivo dispositivo1 = new Dispositivo(LocalDate.of(2020,2,12), 1000, Dispositivo.TipoDispositivo.ORDENADOR, "HP", "Pavilion");
+        Dispositivo dispositivo2 = new Dispositivo(LocalDate.of(2021,2,12), 1000, Dispositivo.TipoDispositivo.ROUTER, "CC", "Pavilion");
+        Dispositivo dispositivo3 = new Dispositivo(LocalDate.of(2022,2,12), 1000, Dispositivo.TipoDispositivo.PANTALLA, "Sony", "Pavi");
+        inventario.getListaDispositivos().add(dispositivo1);
+        inventario.getListaDispositivos().add(dispositivo2);
+        inventario.getListaDispositivos().add(dispositivo3);
+
+    }
+
+    private void limpiarCampos() {
+        tipoDipostivo.setValue(null);
+        txtMarca.clear();
+        txtPrecio.clear();
+        txtfechaCompra.setValue(null);
+        txtModelo.clear();
+    }
+
     private void mostrarDispositivo() {
-        txtDispositivo.setText(dispositivoSeleccionado.getTipoAtributo().name());
+        tipoDipostivo.setValue(dispositivoSeleccionado.getTipoAtributo().name());
         txtMarca.setText(dispositivoSeleccionado.getMarca());
         txtPrecio.setText(String.valueOf(dispositivoSeleccionado.getPrecio()));
-        txtfechaCompra.setText(dispositivoSeleccionado.getFechaCompra());
+        txtfechaCompra.setValue(dispositivoSeleccionado.getFechaCompra());
+        txtModelo.setText(dispositivoSeleccionado.getModelo());
     }
 
     @FXML
     void altaDispositivo(ActionEvent event) {
         Dispositivo dispositivo = new Dispositivo();
-        dispositivo.setTipoAtributo(Dispositivo.TipoDispositivo.valueOf(txtDispositivo.getText()));
+        dispositivo.setTipoAtributo(Dispositivo.TipoDispositivo.valueOf(tipoDipostivo.getValue()));
         dispositivo.setMarca(txtMarca.getText());
         dispositivo.setPrecio(Double.parseDouble(txtPrecio.getText()));
-        dispositivo.setFechaCompra(txtfechaCompra.getText());
+        dispositivo.setFechaCompra(txtfechaCompra.getValue());
+        dispositivo.setModelo(txtModelo.getText());
         inventario.getListaDispositivos().add(dispositivo);
         listaInventario.getItems().add(dispositivo);
+        limpiarCampos();
 
     }
 
@@ -68,6 +98,7 @@ public class HelloController {
     void bajaDispositivo(ActionEvent event) {
         inventario.getListaDispositivos().remove(dispositivoSeleccionado);
         listaInventario.getItems().remove(dispositivoSeleccionado);
+        limpiarCampos();
     }
 
     @FXML
@@ -85,6 +116,7 @@ public class HelloController {
                 writer.write("Tipo: " + dispositivo.getTipoAtributo().name() + ", ");
                 writer.write("Marca: " + dispositivo.getMarca() + ", ");
                 writer.write("Precio: " + dispositivo.getPrecio() + ", ");
+                writer.write("Modelo: " + dispositivo.getModelo() + ", ");
                 writer.write("Fecha de compra: " + dispositivo.getFechaCompra() + "\n");
             }
             System.out.println("La lista de dispositivos se ha impreso en el archivo: " + nombreArchivo);
@@ -97,20 +129,15 @@ public class HelloController {
 
     @FXML
     void modificarDispositivo(ActionEvent event) {
-        dispositivoSeleccionado.setTipoAtributo(Dispositivo.TipoDispositivo.valueOf(txtDispositivo.getText()));
+        dispositivoSeleccionado.setTipoAtributo(Dispositivo.TipoDispositivo.valueOf(tipoDipostivo.getValue()));
         dispositivoSeleccionado.setMarca(txtMarca.getText());
         dispositivoSeleccionado.setPrecio(Double.parseDouble(txtPrecio.getText()));
-        dispositivoSeleccionado.setFechaCompra(txtfechaCompra.getText());
+        dispositivoSeleccionado.setFechaCompra(txtfechaCompra.getValue());
+        dispositivoSeleccionado.setModelo(txtModelo.getText());
         listaInventario.refresh();
+        limpiarCampos();
     }
 
-    @FXML
-    void odenarFecha(ActionEvent event) {
-        //ordenar por fecha de compra
-        inventario.setOrdenacion("Fecha");
-        //ordenar la lista de dispositivos por fecha de compra
-        listaInventario.getItems().sort(Comparator.comparing(Dispositivo::getFechaCompra));
 
-    }
 
 }
