@@ -2,7 +2,10 @@ package com.example.dispositivosfx.models;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class represents an inventory of devices.
+ * It has attributes like a list of devices, sorting order, and the path for printing the list of devices.
+ */
 public class Inventario {
 
     /**
