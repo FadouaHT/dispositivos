@@ -15,7 +15,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
-
+/**
+ * This class is a controller for the Hello view.
+ * It manages the interactions between the user and the UI.
+ */
 public class HelloController {
 
     @FXML
@@ -39,7 +42,10 @@ public class HelloController {
     @FXML
     private DatePicker txtfechaCompra;
 
-
+    /**
+     * This method initializes the controller.
+     * It sets up the ListView and the ChoiceBox, and populates the ListView with the devices in the inventory.
+     */
     public void initialize() {
         inventario = new Inventario();
         inventario.setRutaImpresionLista("listaDispositivos.txt");
@@ -53,7 +59,9 @@ public class HelloController {
                 }
         );
     }
-
+    /**
+     * This method populates the inventory with some sample devices.
+     */
     private void rellenarLista() {
         Dispositivo dispositivo1 = new Dispositivo(LocalDate.of(2020,2,12), 1000, Dispositivo.TipoDispositivo.ORDENADOR, "HP", "Pavilion");
         Dispositivo dispositivo2 = new Dispositivo(LocalDate.of(2021,2,12), 1000, Dispositivo.TipoDispositivo.ROUTER, "CC", "Pavilion");
@@ -64,6 +72,9 @@ public class HelloController {
 
     }
 
+    /**
+     * This method clears all the input fields.
+     */
     private void limpiarCampos() {
         tipoDipostivo.setValue(null);
         txtMarca.clear();
@@ -71,7 +82,9 @@ public class HelloController {
         txtfechaCompra.setValue(null);
         txtModelo.clear();
     }
-
+    /**
+     * This method displays the details of the currently selected device in the input fields.
+     */
     private void mostrarDispositivo() {
         tipoDipostivo.setValue(dispositivoSeleccionado.getTipoAtributo().name());
         txtMarca.setText(dispositivoSeleccionado.getMarca());
@@ -79,7 +92,11 @@ public class HelloController {
         txtfechaCompra.setValue(dispositivoSeleccionado.getFechaCompra());
         txtModelo.setText(dispositivoSeleccionado.getModelo());
     }
-
+    /**
+     * This method is called when the user clicks the "Alta" button.
+     * It creates a new device with the details from the input fields, adds it to the inventory and the ListView, and clears the input fields.
+     * @param event The ActionEvent object representing the button click event.
+     */
     @FXML
     void altaDispositivo(ActionEvent event) {
         Dispositivo dispositivo = new Dispositivo();
@@ -93,14 +110,22 @@ public class HelloController {
         limpiarCampos();
 
     }
-
+    /**
+     * This method is called when the user clicks the "Baja" button.
+     * It removes the currently selected device from the inventory and the ListView, and clears the input fields.
+     * @param event The ActionEvent object representing the button click event.
+     */
     @FXML
     void bajaDispositivo(ActionEvent event) {
         inventario.getListaDispositivos().remove(dispositivoSeleccionado);
         listaInventario.getItems().remove(dispositivoSeleccionado);
         limpiarCampos();
     }
-
+    /**
+     * This method is called when the user clicks the "Imprimir" button.
+     * It prints the list of devices in the inventory to a text file.
+     * @param event The ActionEvent object representing the button click event.
+     */
     @FXML
     void imprimirDispositivo(ActionEvent event) {
         //imprimir la lista de dispositivos en un txt
@@ -126,7 +151,11 @@ public class HelloController {
 
 
     }
-
+    /**
+     * This method is called when the user clicks the "Imprimir" button.
+     * It prints the list of devices in the inventory to a text file.
+     * @param event The ActionEvent object representing the button click event.
+     */
     @FXML
     void modificarDispositivo(ActionEvent event) {
         dispositivoSeleccionado.setTipoAtributo(Dispositivo.TipoDispositivo.valueOf(tipoDipostivo.getValue()));

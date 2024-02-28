@@ -4,15 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventario {
-    //    Lista[Dispositivos], Ordenación, RutaImpresiónLista[Dispositivos], Ordenación, RutaImpresión
+
+    /**
+     * This method returns a string representation of the device.
+     * It includes the type, brand, and model of the device.
+     */
     private List<Dispositivo> listaDispositivos = new ArrayList<>();
     private String ordenacion;
 
     private String rutaImpresionLista;
 
+    /**
+     * This constructor initializes an empty inventory.
+     */
     public Inventario() {
     }
-
+    /**
+     * This constructor initializes an inventory with the given list of devices, sorting order, and print path.
+     */
     public Inventario(ArrayList<Dispositivo> listaDispositivos, String ordenacion, String rutaImpresionLista) {
         this.listaDispositivos = listaDispositivos;
         this.ordenacion = ordenacion;
