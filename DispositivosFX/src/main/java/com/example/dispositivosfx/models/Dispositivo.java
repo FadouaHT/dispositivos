@@ -1,8 +1,10 @@
 package com.example.dispositivosfx.models;
 
 public class Dispositivo {
-    enum TipoDispositivo {
+   public enum TipoDispositivo {
         ORDENADOR, PANTALLA, IMPRESORA, PROYECTOR, PORTATIL, ROUTER;
+
+
     }
     //•	Atributos: Identificador, FechaCompra, Precio, Tipo Atributo, Marca, Modelo,
 
@@ -19,6 +21,9 @@ public class Dispositivo {
         this.tipoAtributo = tipoAtributo;
         this.marca = marca;
         this.modelo = modelo;
+    }
+
+    public Dispositivo() {
     }
 
     public int getId() {

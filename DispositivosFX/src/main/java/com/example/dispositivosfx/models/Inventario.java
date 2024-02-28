@@ -1,23 +1,29 @@
 package com.example.dispositivosfx.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Inventario {
     //    Lista[Dispositivos], Ordenación, RutaImpresiónLista[Dispositivos], Ordenación, RutaImpresión
-    private Dispositivo[] listaDispositivos;
+    private List<Dispositivo> listaDispositivos;
     private String ordenacion;
 
     private String rutaImpresionLista;
 
-    public Inventario(Dispositivo[] listaDispositivos, String ordenacion, String rutaImpresionLista) {
+    public Inventario() {
+    }
+
+    public Inventario(ArrayList<Dispositivo> listaDispositivos, String ordenacion, String rutaImpresionLista) {
         this.listaDispositivos = listaDispositivos;
         this.ordenacion = ordenacion;
         this.rutaImpresionLista = rutaImpresionLista;
     }
 
-    public Dispositivo[] getListaDispositivos() {
+    public List<Dispositivo> getListaDispositivos() {
         return listaDispositivos;
     }
 
-    public void setListaDispositivos(Dispositivo[] listaDispositivos) {
+    public void setListaDispositivos(List<Dispositivo> listaDispositivos) {
         this.listaDispositivos = listaDispositivos;
     }
 
