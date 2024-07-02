@@ -27,7 +27,7 @@ public class HelloController {
     private Dispositivo dispositivoSeleccionado;
 
     private Inventario inventario;
-    private String hola;
+    private String hola22;
 
     @FXML
     private ChoiceBox<String> tipoDipostivo;
